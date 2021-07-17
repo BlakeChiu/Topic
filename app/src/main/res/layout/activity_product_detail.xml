@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_L"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_R"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_T"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_B2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97" />
+
+    <ImageView
+        android:id="@+id/prodouct_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_B"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_R"
+        app:layout_constraintStart_toStartOf="@+id/guideline_L"
+        app:layout_constraintTop_toTopOf="@+id/guideline_T"
+        android:background="@null" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/review_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/delete_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_R"
+        app:layout_constraintStart_toStartOf="@+id/guideline_L"
+        app:layout_constraintTop_toBottomOf="@+id/prodouct_image">
+
+        <TextView
+            android:id="@+id/product_address"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:text="address"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:text="name"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/product_address"
+            app:layout_constraintTop_toBottomOf="@+id/product_address" />
+
+        <TextView
+            android:id="@+id/product_phone"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:text="phone"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_name" />
+
+        <TextView
+            android:id="@+id/product_houseType"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:text="houseType"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_phone" />
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:text="price"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_houseType" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/modify_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/delete_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_R"
+        app:layout_constraintStart_toStartOf="@+id/guideline_L"
+        app:layout_constraintTop_toBottomOf="@+id/prodouct_image">
+
+        <EditText
+            android:id="@+id/product_address_edit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp"
+            android:text="address"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1"/>
+
+        <EditText
+            android:id="@+id/product_name_edit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_address_edit" />
+
+        <EditText
+            android:id="@+id/product_phone_edit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:inputType="phone"
+            android:paddingStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_name_edit"/>
+
+        <Spinner
+            android:id="@+id/spinner_edit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingStart="10dp"
+            android:layout_marginTop="4dp"
+            android:dropDownHorizontalOffset="50dp"
+            android:dropDownVerticalOffset="40dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_phone_edit" />
+
+        <EditText
+            android:id="@+id/product_price_edit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="price"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_edit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/detail_btn"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:text="聯絡房東"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="#BEBEBE"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_B2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_R"
+        app:layout_constraintStart_toStartOf="@+id/guideline_L" />
+
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="6dp"
+        android:background="#ff9b8e"
+        android:text="刪除"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/detail_btn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_R"
+        app:layout_constraintStart_toStartOf="@+id/guideline_L" />
+
+    <TextView
+        android:id="@+id/text_btn"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="預覽"
+        android:textStyle="bold"
+        android:textColor="#8E8E8E"
+        android:textSize="18sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_R"
+        app:layout_constraintTop_toTopOf="@+id/guideline_T" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
