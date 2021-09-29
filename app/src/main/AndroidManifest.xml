@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.topic">
 
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,27 +10,34 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Topic"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
-        <activity android:name=".Product_Detail"></activity>
-        <activity
-            android:name=".History"
-            android:label="History" />
-        <activity
-            android:name=".Msg"
-            android:label="Msg" />
-        <activity
-            android:name=".Publish"
-            android:label="Publish" />
-        <activity
-            android:name=".Search"
-            android:label="Search" />
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
-            android:label="MainActivity">
+            android:exported="true" />
+        <activity
+            android:name=".Sightseeing.FeatureDetail"
+            android:exported="true"
+            android:label="@string/title_activity_feature_detail"
+            android:theme="@style/Theme.Topic.NoActionBar" />
+        <activity android:name=".RoomInfo.Product_Detail" />
+        <activity
+            android:name=".Sightseeing.Feature"
+            android:label="History" />
+        <activity
+            android:name=".Connection"
+            android:label="Msg" />
+        <activity
+            android:name=".RoomInfo.Publish"
+            android:label="Publish" />
+        <activity
+            android:name=".RoomInfo.Search"
+            android:label="Search" />
+        <activity
+            android:name=".Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

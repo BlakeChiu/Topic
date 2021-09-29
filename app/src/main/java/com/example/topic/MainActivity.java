@@ -9,10 +9,16 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.example.topic.RoomInfo.Publish;
+import com.example.topic.RoomInfo.Search;
+import com.example.topic.Sightseeing.Feature;
 
 public class MainActivity extends AppCompatActivity {
+
+    final public static String dataUrl = "http://192.168.1.9/android/";
+
+    final public static String imageUrl = "http://192.168.1.9/upload-image/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         //畫面切換
         CardView search = (CardView) findViewById(R.id.search);
         CardView publish = (CardView) findViewById(R.id.publish);
-        CardView msg = (CardView) findViewById(R.id.msg);
-        CardView history = (CardView) findViewById(R.id.history);
+        CardView connection = (CardView) findViewById(R.id.connection);
+        CardView feature = (CardView) findViewById(R.id.feature);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,21 +50,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        msg.setOnClickListener(new View.OnClickListener() {
+        connection.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this, Msg.class);
+                intent.setClass(MainActivity.this, Connection.class);
                 startActivity(intent);
             }
         });
-        history.setOnClickListener(new View.OnClickListener() {
+        feature.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this, History.class);
+                intent.setClass(MainActivity.this, Feature.class);
                 startActivity(intent);
             }
         });

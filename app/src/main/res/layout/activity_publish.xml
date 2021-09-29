@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Publish">
+    tools:context=".RoomInfo.Publish">
 
     <TextView
         android:id="@+id/textView"
@@ -24,9 +24,8 @@
         android:id="@+id/nameEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="NAME"
         android:layout_marginRight="10dp"
+        android:inputType="textPersonName"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +54,6 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="ADDRESS"
         app:layout_constraintEnd_toEndOf="@+id/nameEdit"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView2"
@@ -68,7 +66,6 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="phone"
-        android:text="0912345678"
         app:layout_constraintEnd_toEndOf="@+id/addressEdit"
         app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toEndOf="@+id/textView2"
@@ -153,7 +150,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:inputType="phone"
-        android:text="1000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/phoneEdit"
         app:layout_constraintHorizontal_bias="0.488"

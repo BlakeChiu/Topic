@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eef3f6"
-    tools:context=".Search">
+    tools:context=".RoomInfo.Search">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_L"
