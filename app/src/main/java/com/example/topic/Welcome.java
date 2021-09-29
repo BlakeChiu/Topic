@@ -14,14 +14,19 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.example.topic.SingInUp.LoginActivity;
+
 public class Welcome extends AppCompatActivity implements Animation.AnimationListener {
 
+    SystemStyle systemStyle = new SystemStyle();
     private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        systemStyle.systemStyle(this);
 
         image = findViewById(R.id.welcome_img);
 
@@ -40,7 +45,7 @@ public class Welcome extends AppCompatActivity implements Animation.AnimationLis
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 

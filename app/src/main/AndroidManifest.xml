@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Topic"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SingInUp.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
@@ -36,8 +39,7 @@
         <activity
             android:name=".RoomInfo.Search"
             android:label="Search" />
-        <activity
-            android:name=".Welcome">
+        <activity android:name=".Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
