@@ -19,12 +19,14 @@ import android.widget.Toast;
 
 import com.example.topic.MainActivity;
 import com.example.topic.R;
+import com.example.topic.URL.Url;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.body.FilePart;
 import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
+import com.koushikdutta.ion.builder.Builders;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,9 +36,9 @@ import java.util.ArrayList;
 
 public class Publish extends AppCompatActivity {
 
+    Url url = new Url();
+
     private final int IMG_REQUEST = 1;
-    private final String imgURL = MainActivity.imageUrl+"picture_move.php";
-    private final String dataURL = MainActivity.dataUrl+"json_data_upload.php";
 
     private final String[] spinnerArr =new String[]{"雅房","獨立套房","分租套房"};
     private ArrayAdapter<String> arrayAdapter;
@@ -142,7 +144,7 @@ public class Publish extends AppCompatActivity {
         jsonObject.put("image", afterURI);
 
         Ion.with(this)
-                .load(dataURL)
+                .load(url.urlDataUpload)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonObject()
                 .withResponse()
@@ -176,7 +178,7 @@ public class Publish extends AppCompatActivity {
         File fileaddress = new File(getRealPathFromUri(this, uri));
         fileParts.add(new FilePart("myupload", fileaddress));
         Ion.with(this)
-                .load(imgURL)
+                .load(url.urlMoveImage)
                 .addMultipartParts(fileParts)
                 .asJsonObject()
                 .withResponse()

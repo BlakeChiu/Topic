@@ -17,10 +17,12 @@ import android.widget.Spinner;
 import com.example.topic.MainActivity;
 import com.example.topic.R;
 import com.example.topic.RoomInfo.RecylerAdapter;
+import com.example.topic.URL.Url;
 import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
+import com.koushikdutta.ion.builder.Builders;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,11 +35,12 @@ import java.util.List;
 
 public class Search extends AppCompatActivity {
 
+    Url url = new Url();
+
     private RecyclerView recyclerView;
     public RecyclerView.LayoutManager manager;
     private RecyclerView.Adapter mAdapter;
     private List<Product> products;
-
 
     Spinner spinner_blog, spinner_room;
     Button search_btn;
@@ -49,9 +52,6 @@ public class Search extends AppCompatActivity {
     ArrayAdapter<String> roomAdapter;
     String searchStr = "";
     String selectType = "0";
-
-
-    private final String Search_URL = MainActivity.dataUrl+"json_data_select.php";
 
     private void init() {
 
@@ -182,7 +182,7 @@ public class Search extends AppCompatActivity {
         }
 
         Ion.with(this)
-                .load(Search_URL)
+                .load(url.urlDataSelect)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonArray()
                 .withResponse()

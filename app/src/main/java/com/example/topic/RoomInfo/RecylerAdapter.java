@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.topic.MainActivity;
 import com.example.topic.R;
+import com.example.topic.URL.Url;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,7 @@ class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Product> products =new ArrayList<>();
-
-    Handler handler;
+    Url url = new Url();
 
     public RecylerAdapter(Context context, List<Product> products){
         this.mContext = context;
@@ -72,7 +72,7 @@ class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.MyViewHolder> {
             holder.mHouseType.setText(product.getHouseType());
             holder.mPrice.setText(product.getPrice());
             Glide.with(mContext)
-                    .load(MainActivity.imageUrl+"uploads/"+product.getImage())
+                    .load(url.urlGetImage+product.getImage())
                     .into(holder.mImageView);
         }else{
             holder.mView.setVisibility(View.GONE);

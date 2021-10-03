@@ -29,6 +29,7 @@ import com.example.topic.MainActivity;
 import com.example.topic.R;
 import com.example.topic.SingInUp.LoginActivity;
 import com.example.topic.SingInUp.LoginNavigationHost;
+import com.example.topic.URL.Url;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -47,6 +48,8 @@ import java.util.List;
 
 public class Product_Detail extends AppCompatActivity{
 
+    Url url = new Url();
+
     private ConstraintLayout review_view, modify_view;
     private ImageView mImage;
     private TextView mAddress, mName, mPhone, mHouseType, mPrice;
@@ -62,12 +65,6 @@ public class Product_Detail extends AppCompatActivity{
     private RecyclerView.Adapter mAdapter;
     private ArrayList<MessagePost> messagePost;
     private InputMethodManager inputMethodManager;
-
-    private final String delete_URL = MainActivity.dataUrl + "json_data_delete.php";
-    private final String img_URL = MainActivity.imageUrl + "picture_move.php";
-    private final String update_URL = MainActivity.dataUrl + "json_data_update.php";
-    private final String getMessage_URL = MainActivity.messageUrl  + "message_select.php";
-    private final String setMessage_URL = MainActivity.messageUrl + "message_insert.php";
 
     final int IMG_REQUEST = 100;
     Uri uri;
@@ -174,7 +171,7 @@ public class Product_Detail extends AppCompatActivity{
                     break;
             }
 
-            Glide.with(Product_Detail.this).load(MainActivity.imageUrl + "uploads/" + image).into(mImage);
+            Glide.with(Product_Detail.this).load(url.urlGetImage + image).into(mImage);
 
         }
 
@@ -241,8 +238,6 @@ public class Product_Detail extends AppCompatActivity{
 
     }
 
-
-
     private AdapterView.OnItemSelectedListener roomListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -265,7 +260,7 @@ public class Product_Detail extends AppCompatActivity{
         }
 
         Ion.with(this)
-                .load(delete_URL)
+                .load(url.urlDataDelete)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonArray()
                 .withResponse()
@@ -306,7 +301,7 @@ public class Product_Detail extends AppCompatActivity{
         jsonObject.put("id", id);
 
         Ion.with(this)
-                .load(update_URL)
+                .load(url.urlDataUpdate)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonObject()
                 .withResponse()
@@ -340,7 +335,7 @@ public class Product_Detail extends AppCompatActivity{
         File fileaddress = new File(getRealPathFromUri(this, uri));
         fileParts.add(new FilePart("myupload", fileaddress));
         Ion.with(this)
-                .load(img_URL)
+                .load(url.urlMoveImage)
                 .addMultipartParts(fileParts)
                 .asJsonObject()
                 .withResponse()
@@ -399,7 +394,7 @@ public class Product_Detail extends AppCompatActivity{
         }
 
         Ion.with(this)
-                .load(getMessage_URL)
+                .load(url.urlMessageGet)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonArray()
                 .withResponse()
@@ -457,7 +452,7 @@ public class Product_Detail extends AppCompatActivity{
         }
 
         Ion.with(this)
-                .load(setMessage_URL)
+                .load(url.urlMessageSet)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonObject()
                 .withResponse()

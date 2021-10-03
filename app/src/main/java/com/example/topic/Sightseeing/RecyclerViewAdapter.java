@@ -22,11 +22,13 @@ import com.example.topic.MainActivity;
 import com.example.topic.R;
 import com.example.topic.RoomInfo.Product;
 import com.example.topic.RoomInfo.Product_Detail;
+import com.example.topic.URL.Url;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ExampleViewHolder> {
 
+    Url url = new Url();
     ArrayList<RecyclerViewPost> mData;
     RecyclerViewPost post;
     Activity mActivity;
@@ -60,7 +62,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.view.setVisibility(View.GONE);
         }
 
-        Glide.with(mActivity).load(MainActivity.imageUrl+"uploads/" + post.imageName).into(holder.img);
+        Glide.with(mActivity).load(url.urlGetImage + post.imageName).into(holder.img);
         holder.title.setText(post.title);
 
         holder.view.setOnClickListener(new View.OnClickListener() {

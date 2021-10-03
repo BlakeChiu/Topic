@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.topic.R;
 import com.example.topic.SingInUp.LoginActivity;
 import com.example.topic.SingInUp.LoginNavigationHost;
+import com.example.topic.URL.Url;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -24,8 +25,7 @@ import org.json.JSONObject;
 
 public class SingUp extends Fragment implements View.OnClickListener {
 
-    private final String singUp_URL = LoginActivity.loginUrl + "member_register.php";
-
+    Url url = new Url();
     EditText accEdit, nameEdit, pwdEdit, pwd2Edit;
 
     @Nullable
@@ -54,7 +54,6 @@ public class SingUp extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.singUp_btn:
                 if (checkInputInfo()) {
-//                ((LoginNavigationHost) getActivity()).loginNavigateTo(new SingIn(),true,"SignIn");
                     SingUp();
                 } else {
                     Toast.makeText(getActivity(), "註冊資料輸入不完全", Toast.LENGTH_SHORT).show();
@@ -92,7 +91,7 @@ public class SingUp extends Fragment implements View.OnClickListener {
         }
 
         Ion.with(this)
-                .load(singUp_URL)
+                .load(url.urlSingUp)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonObject()
                 .withResponse()

@@ -10,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.topic.MainActivity;
 import com.example.topic.R;
+import com.example.topic.URL.Url;
 
 public class FeatureDetail extends AppCompatActivity {
 
+    Url url = new Url();
     TextView titleLabel,addressLabel,infoLabel;
     ImageView image;
 
@@ -37,7 +39,7 @@ public class FeatureDetail extends AppCompatActivity {
         titleLabel.setText(intent.getStringExtra("title"));
         infoLabel.setText(intent.getStringExtra("info"));
 
-        Glide.with(FeatureDetail.this).load(MainActivity.imageUrl+"uploads/" + intent.getStringExtra("image")).into(image);
+        Glide.with(FeatureDetail.this).load(url.urlGetImage + intent.getStringExtra("image")).into(image);
 
     }
 }

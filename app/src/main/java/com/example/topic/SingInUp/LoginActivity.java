@@ -17,8 +17,6 @@ import com.example.topic.SystemStyle;
 
 public class LoginActivity extends AppCompatActivity implements LoginNavigationHost{
 
-    final public static String loginUrl = "http://192.168.64.2/android/Login/";
-
     SystemStyle systemStyle = new SystemStyle();
     private InputMethodManager inputMethodManager;
 

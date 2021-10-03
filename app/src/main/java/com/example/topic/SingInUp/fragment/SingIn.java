@@ -19,6 +19,7 @@ import com.example.topic.R;
 import com.example.topic.SingInUp.LoginActivity;
 import com.example.topic.SingInUp.LoginNavigationHost;
 import com.example.topic.SystemStyle;
+import com.example.topic.URL.Url;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -30,8 +31,7 @@ import org.json.JSONObject;
 
 public class SingIn extends Fragment implements View.OnClickListener {
 
-    private final String singIn_URL = LoginActivity.loginUrl + "member_login.php";
-
+    Url url = new Url();
     SystemStyle systemStyle = new SystemStyle();
 
     EditText accountEdit,pwdEdit;
@@ -105,7 +105,7 @@ public class SingIn extends Fragment implements View.OnClickListener {
         }
 
         Ion.with(this)
-                .load(singIn_URL)
+                .load(url.urlSingIn)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonObject()
                 .withResponse()

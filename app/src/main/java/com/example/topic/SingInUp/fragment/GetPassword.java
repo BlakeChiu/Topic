@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.topic.R;
 import com.example.topic.SingInUp.LoginActivity;
 import com.example.topic.SingInUp.LoginNavigationHost;
+import com.example.topic.URL.Url;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 
 public class GetPassword extends Fragment implements View.OnClickListener {
 
-    private final String getPwd_URL = LoginActivity.loginUrl + "member_forget.php";
+    Url url = new Url();
 
     EditText accEdit, nameEdit;
     TextView showPwd;
@@ -91,7 +92,7 @@ public class GetPassword extends Fragment implements View.OnClickListener {
         }
 
         Ion.with(this)
-                .load(getPwd_URL)
+                .load(url.urlGetPwd)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonObject()
                 .withResponse()

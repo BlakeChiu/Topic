@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.topic.MainActivity;
 import com.example.topic.R;
+import com.example.topic.URL.Url;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.FutureCallback;
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class Feature extends AppCompatActivity {
 
-    final String sightseeingUrl = MainActivity.dataUrl+"json_data_select_sightseeing.php";
+    Url url = new Url();
 
     // 風景＝false   名產＝true
     public static Boolean showStatus = false;
@@ -113,7 +114,7 @@ public class Feature extends AppCompatActivity {
         }
 
         Ion.with(this)
-                .load(sightseeingUrl)
+                .load(url.urlSightseeingSelect)
                 .setBodyParameter("action", jsonObject.toString())
                 .asJsonArray()
                 .withResponse()
