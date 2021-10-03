@@ -420,7 +420,9 @@ public class Product_Detail extends AppCompatActivity{
             JSONArray arr = new JSONArray(jsonObject);
 
             if (arr.getJSONObject(0).has("result")){
-                Toast.makeText(getApplicationContext(), ""+arr.getJSONObject(0).getString("result"), Toast.LENGTH_SHORT).show();
+                if (arr.getJSONObject(0).getString("result").equals("系統錯誤")){
+                    Toast.makeText(getApplicationContext(), ""+arr.getJSONObject(0).getString("result"), Toast.LENGTH_SHORT).show();
+                }
             }else{
                 for (int i = 0; i < arr.length(); i++) {
                     String name = arr.getJSONObject(i).getString("name");
