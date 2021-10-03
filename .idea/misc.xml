@@ -12,7 +12,11 @@
         <entry key="..\:/Users/gopl0/AndroidStudioProjects/Topic0415/app/src/main/res/layout/fragment_second.xml" value="0.25226449275362317" />
         <entry key="app/src/main/res/drawable/button_style.xml" value="0.3921875" />
         <entry key="app/src/main/res/drawable/edit_style.xml" value="0.3921875" />
+        <entry key="app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.44427083333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_local_phone_48.xml" value="0.32685185185185184" />
         <entry key="app/src/main/res/drawable/login_background.xml" value="0.3921875" />
+        <entry key="app/src/main/res/drawable/message_btn_style.xml" value="0.5796875" />
+        <entry key="app/src/main/res/drawable/message_style.xml" value="0.5796875" />
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.3203125" />
         <entry key="app/src/main/res/drawable/search_icon.xml" value="0.3203125" />
         <entry key="app/src/main/res/drawable/tablayout_indicator_style.xml" value="0.3921875" />
@@ -21,8 +25,10 @@
         <entry key="app/src/main/res/layout/activity_feature_detail.xml" value="0.45153985507246375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3307291666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/activity_product_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/cell_message.xml" value="0.4276041666666667" />
         <entry key="app/src/main/res/layout/cell_product.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/content_feature_detail.xml" value="0.45153985507246375" />
         <entry key="app/src/main/res/layout/frag_get_pwd.xml" value="0.37604166666666666" />

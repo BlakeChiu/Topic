@@ -12,12 +12,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.topic.R;
+import com.example.topic.SingInUp.LoginActivity;
 import com.example.topic.SingInUp.LoginNavigationHost;
-import com.example.topic.SystemStyle;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
 
-import java.util.Objects;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SingUp extends Fragment implements View.OnClickListener {
+
+    private final String singUp_URL = LoginActivity.loginUrl + "member_register.php";
 
     EditText accEdit, nameEdit, pwdEdit, pwd2Edit;
 
@@ -48,6 +55,7 @@ public class SingUp extends Fragment implements View.OnClickListener {
             case R.id.singUp_btn:
                 if (checkInputInfo()) {
 //                ((LoginNavigationHost) getActivity()).loginNavigateTo(new SingIn(),true,"SignIn");
+                    SingUp();
                 } else {
                     Toast.makeText(getActivity(), "註冊資料輸入不完全", Toast.LENGTH_SHORT).show();
                 }
@@ -72,5 +80,66 @@ public class SingUp extends Fragment implements View.OnClickListener {
         return status;
     }
 
+    private void SingUp() {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("name",nameEdit.getText().toString());
+            jsonObject.put("phone", accEdit.getText().toString());
+            jsonObject.put("password",pwdEdit.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Ion.with(this)
+                .load(singUp_URL)
+                .setBodyParameter("action", jsonObject.toString())
+                .asJsonObject()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<JsonObject>>() {
+                    @Override
+                    public void onCompleted(Exception e, Response<JsonObject> result) {
+
+                        if (e != null) {
+
+                        } else {
+                            if (result.getHeaders().code() == 200) {
+                                JsonParse(result.getResult().toString());
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void JsonParse(String jsonObject) {
+
+        try {
+
+            JSONObject json = new JSONObject(jsonObject);
+
+            switch (json.getString("result")){
+                case "ok":
+                    Toast.makeText(getActivity(), "註冊成功", Toast.LENGTH_SHORT).show();
+                    clearAllEdit();
+                    break;
+                case "系統錯誤":
+                    Toast.makeText(getActivity(), "系統錯誤", Toast.LENGTH_SHORT).show();
+                    break;
+                case "此電話已註冊":
+                    Toast.makeText(getActivity(), "此電話已註冊", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clearAllEdit(){
+        nameEdit.setText("");
+        accEdit.setText("");
+        pwdEdit.setText("");
+        pwd2Edit.setText("");
+    }
 
 }

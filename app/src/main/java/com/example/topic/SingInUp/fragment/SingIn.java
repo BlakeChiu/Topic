@@ -1,6 +1,7 @@
 package com.example.topic.SingInUp.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.topic.MainActivity;
 import com.example.topic.R;
+import com.example.topic.SingInUp.LoginActivity;
 import com.example.topic.SingInUp.LoginNavigationHost;
 import com.example.topic.SystemStyle;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SingIn extends Fragment implements View.OnClickListener {
+
+    private final String singIn_URL = LoginActivity.loginUrl + "member_login.php";
 
     SystemStyle systemStyle = new SystemStyle();
 
@@ -53,7 +66,7 @@ public class SingIn extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.singIn_btn:
                 if(checkLoginInfo()){
-                    ((LoginNavigationHost) requireActivity()).exit();
+                    SingIn();
                 }else{
                     Toast.makeText(getContext(), "輸入不完全", Toast.LENGTH_SHORT).show();
                 }
@@ -79,5 +92,60 @@ public class SingIn extends Fragment implements View.OnClickListener {
         }
 
         return status;
+    }
+
+    private void SingIn() {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("phone", accountEdit.getText().toString());
+            jsonObject.put("password",pwdEdit.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Ion.with(this)
+                .load(singIn_URL)
+                .setBodyParameter("action", jsonObject.toString())
+                .asJsonObject()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<JsonObject>>() {
+                    @Override
+                    public void onCompleted(Exception e, Response<JsonObject> result) {
+
+                        if (e != null) {
+
+                        } else {
+                            if (result.getHeaders().code() == 200) {
+                                JsonParse(result.getResult().toString());
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void JsonParse(String jsonObject) {
+
+        try {
+
+            JSONObject json = new JSONObject(jsonObject);
+
+            if(json.has("result")){
+                Toast.makeText(getActivity(), ""+json.getString("result"), Toast.LENGTH_SHORT).show();
+            }else{
+                LoginActivity.userName = json.getString("name");
+                Toast.makeText(getContext(), "成功登入："+json.getString("name"), Toast.LENGTH_SHORT).show();
+                clearAllEdit();
+                ((LoginNavigationHost) requireActivity()).exit();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clearAllEdit(){
+        accountEdit.setText("");
+        pwdEdit.setText("");
     }
 }

@@ -127,11 +127,7 @@ public class Feature extends AppCompatActivity {
                             if (result.getHeaders().code() == 200) {
                                 if (result.getResult() != null) {
                                     JsonParse(result.getResult().toString());
-                                } else {
-
                                 }
-                            } else {
-//                                Toast.makeText(Search.this, "上傳資料失敗", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

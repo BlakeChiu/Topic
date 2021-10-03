@@ -198,11 +198,7 @@ public class Search extends AppCompatActivity {
                                 if (result.getResult() != null) {
                                     Log.i("TAGGGG",result.getResult().toString());
                                     JsonParse(result.getResult().toString());
-                                } else {
-
                                 }
-                            } else {
-//                                Toast.makeText(Search.this, "上傳資料失敗", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -213,7 +209,6 @@ public class Search extends AppCompatActivity {
 
         try {
             JSONArray arr = new JSONArray(jsonObject);
-
             for (int i = 0; i < arr.length(); i++) {
 
                 String id = arr.getJSONObject(i).getString("id");
@@ -232,60 +227,8 @@ public class Search extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
         mAdapter = new RecylerAdapter(Search.this, products);
         recyclerView.setAdapter(mAdapter);
 
     }
-
-//    private void getProdcts() {
-//        progressBar.setVisibility(View.VISIBLE);
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, Base_URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//
-//                        progressBar.setVisibility(View.GONE);
-//
-//                        try {
-//
-//                            JSONArray array = new JSONArray(response);
-//                            for (int i = 0; i < array.length(); i++) {
-//                                JSONObject object = array.getJSONObject(i);
-//
-//                                Log.i("TAGGGG", "object= " + object);
-//
-//                                int id = object.getInt("id");
-//                                String address = object.getString("address");
-//                                String name = object.getString("name");
-//                                String image = object.getString("image");
-//                                String houseType = object.getString("housetype");
-//                                String price = object.getString("price");
-//                                String phone = object.getString("phone");
-//
-//                                Product product = new Product(id, address, name, image, houseType, price, phone);
-//                                products.add(product);
-//                            }
-//
-//                        } catch (Exception e) {
-//                            Log.i("TAGGGG", "error = " + e.getMessage());
-//                        }
-//
-//                        mAdapter = new RecylerAdapter(Search.this, products);
-//                        recyclerView.setAdapter(mAdapter);
-//
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//                progressBar.setVisibility(View.GONE);
-//                Toast.makeText(Search.this, error.toString(), Toast.LENGTH_LONG).show();
-//            }
-//        });
-//
-//        Volley.newRequestQueue(Search.this).add(stringRequest);
-//
-//    }
 }

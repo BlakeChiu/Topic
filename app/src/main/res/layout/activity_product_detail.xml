@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:onClick="onClick">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_L"
@@ -61,63 +62,77 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_L"
         app:layout_constraintTop_toBottomOf="@+id/prodouct_image">
 
-        <TextView
-            android:id="@+id/product_address"
+        <ScrollView
             android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:text="address"
-            android:gravity="center_vertical"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/product_name"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="4dp"
-            android:text="name"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/product_address"
-            app:layout_constraintTop_toBottomOf="@+id/product_address" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/product_phone"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="4dp"
-            android:text="phone"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_name" />
+                <TextView
+                    android:id="@+id/product_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:text="address"
+                    android:gravity="center_vertical" />
 
-        <TextView
-            android:id="@+id/product_houseType"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="4dp"
-            android:text="houseType"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_phone" />
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
+                    android:text="name"
+                    android:gravity="center_vertical" />
 
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="4dp"
-            android:text="price"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_houseType" />
+                <TextView
+                    android:id="@+id/product_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
+                    android:text="phone"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/product_houseType"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
+                    android:text="houseType"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
+                    android:text="price"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
+                    android:text="會員留言區"
+                    android:textAllCaps="false"
+                    android:textColor="#323232"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic"
+                    android:gravity="center_vertical" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/message_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,15 +157,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1"/>
+            app:layout_constraintVertical_bias="0.1" />
 
         <EditText
             android:id="@+id/product_name_edit"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_marginTop="4dp"
             android:inputType="textPersonName"
             android:paddingStart="10dp"
-            android:layout_marginTop="4dp"
             android:text="name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -160,22 +175,22 @@
             android:id="@+id/product_phone_edit"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_marginTop="4dp"
             android:inputType="phone"
             android:paddingStart="10dp"
-            android:layout_marginTop="4dp"
             android:text="phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_name_edit"/>
+            app:layout_constraintTop_toBottomOf="@+id/product_name_edit" />
 
         <Spinner
             android:id="@+id/spinner_edit"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:paddingStart="10dp"
             android:layout_marginTop="4dp"
             android:dropDownHorizontalOffset="50dp"
             android:dropDownVerticalOffset="40dp"
+            android:paddingStart="10dp"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -185,27 +200,60 @@
             android:id="@+id/product_price_edit"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:paddingStart="10dp"
             android:layout_marginTop="4dp"
-            android:text="price"
             android:inputType="number"
+            android:paddingStart="10dp"
+            android:text="price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_edit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/detail_btn"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/messageInputView"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:text="聯絡房東"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:background="#BEBEBE"
         app:layout_constraintBottom_toTopOf="@+id/guideline_B2"
         app:layout_constraintEnd_toStartOf="@+id/guideline_R"
-        app:layout_constraintStart_toStartOf="@+id/guideline_L" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_L">
+
+        <EditText
+            android:id="@+id/message_edit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/message_style"
+            android:inputType="text"
+            android:paddingEnd="20dp"
+            android:textAlignment="textEnd"
+            android:textColor="#050505"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/setMessage_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/setMessage_btn"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/message_btn_style"
+            android:text="送出"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/delete_btn"
@@ -216,8 +264,8 @@
         android:text="刪除"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/detail_btn"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/messageInputView"
         app:layout_constraintEnd_toStartOf="@+id/guideline_R"
         app:layout_constraintStart_toStartOf="@+id/guideline_L" />
 
@@ -234,5 +282,21 @@
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/guideline_R"
         app:layout_constraintTop_toTopOf="@+id/guideline_T" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingBtn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_baseline_local_phone_48"
+        android:foregroundGravity="center"
+        app:backgroundTint="#9b9b9b"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintVertical_bias="0.88"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

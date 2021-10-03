@@ -16,9 +16,11 @@ import com.example.topic.Sightseeing.Feature;
 
 public class MainActivity extends AppCompatActivity {
 
-    final public static String dataUrl = "http://192.168.1.9/android/";
+    final public static String dataUrl = "http://192.168.64.2/android/";
 
-    final public static String imageUrl = "http://192.168.1.9/upload-image/";
+    final public static String messageUrl = "http://192.168.64.2/android/Message/";
+
+    final public static String imageUrl = "http://192.168.64.2/upload-image/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

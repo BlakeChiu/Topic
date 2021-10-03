@@ -3,6 +3,8 @@ package com.example.topic.RoomInfo;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,6 +27,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.topic.MainActivity;
 import com.example.topic.R;
+import com.example.topic.SingInUp.LoginActivity;
+import com.example.topic.SingInUp.LoginNavigationHost;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -32,39 +37,56 @@ import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Product_Detail extends AppCompatActivity {
+public class Product_Detail extends AppCompatActivity{
 
     private ConstraintLayout review_view, modify_view;
     private ImageView mImage;
     private TextView mAddress, mName, mPhone, mHouseType, mPrice;
-    private EditText mAddress_edit, mName_edit, mPhone_edit, mPrice_edit;
+    private EditText mAddress_edit, mName_edit, mPhone_edit, mPrice_edit,messageEdit;
     private Spinner mHouseType_spinner;
     private TextView type_text;
-    private Button connect_btn, delete_btn;
+    private Button delete_btn, messageBtn;
 
     ArrayAdapter<String> roomAdapter;
     final String[] roomArr = new String[]{"雅房", "獨立套房", "分租套房"};
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private ArrayList<MessagePost> messagePost;
+    private InputMethodManager inputMethodManager;
+
     private final String delete_URL = MainActivity.dataUrl + "json_data_delete.php";
     private final String img_URL = MainActivity.imageUrl + "picture_move.php";
     private final String update_URL = MainActivity.dataUrl + "json_data_update.php";
+    private final String getMessage_URL = MainActivity.messageUrl  + "message_select.php";
+    private final String setMessage_URL = MainActivity.messageUrl + "message_insert.php";
 
     final int IMG_REQUEST = 100;
     Uri uri;
     String houseType = "";
     String status = "1";
 
+    String products_id;
+
     // 初始化元件
     private void init() {
 
+        messagePost = new ArrayList<>();
+        recyclerView = findViewById(R.id.message_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mImage = findViewById(R.id.prodouct_image);
         type_text = findViewById(R.id.text_btn);
+
+        messageEdit = findViewById(R.id.message_edit);
+        messageBtn = findViewById(R.id.setMessage_btn);
 
         review_view = findViewById(R.id.review_view);
         mAddress = findViewById(R.id.product_address);
@@ -80,7 +102,6 @@ public class Product_Detail extends AppCompatActivity {
         mPrice_edit = findViewById(R.id.product_price_edit);
         mHouseType_spinner = findViewById(R.id.spinner_edit);
 
-        connect_btn = findViewById(R.id.detail_btn);
         delete_btn = findViewById(R.id.delete_btn);
 
         roomAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, roomArr);
@@ -116,7 +137,7 @@ public class Product_Detail extends AppCompatActivity {
 
         //捕捉傳入的東西
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        products_id = intent.getStringExtra("id");
         String address = intent.getStringExtra("address");
         String name = intent.getStringExtra("name");
         String image = intent.getStringExtra("image");
@@ -126,6 +147,7 @@ public class Product_Detail extends AppCompatActivity {
         status = intent.getStringExtra("status");
 
         init();
+        GetMessage(products_id);
 
         if (intent != null) {
             mAddress.setText(address);
@@ -155,18 +177,24 @@ public class Product_Detail extends AppCompatActivity {
 
         }
 
-        // 撥打電話-按鍵監聽
-        connect_btn.setOnClickListener(v -> {
-            if (type_text.getText().equals("修改")) {
-                Toast.makeText(this, "請回預覽模式在撥打電話", Toast.LENGTH_SHORT).show();
-            } else {
-                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
-            }
+
+        findViewById(R.id.floatingBtn).setOnClickListener(v -> {
+            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
         });
+
+        messageBtn.setOnClickListener(v -> {
+            if(!getMessageEdit().equals("") || !getMessageEdit().isEmpty()){
+                SetMessage(products_id,getMessageEdit());
+            }else{
+                Toast.makeText(this, "尚未輸入任何留言", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
 
         // 刪除資料-按鍵監聽
         delete_btn.setOnClickListener(v -> {
-            delete(id);
+            delete(products_id);
         });
 
         // 預覽/修改-按鍵監聽
@@ -184,8 +212,7 @@ public class Product_Detail extends AppCompatActivity {
 
                 } else if (type_text.getText().equals("修改")) {
                     try {
-                        Log.i("TAGGGGG", " image = " + mImage.getBackground());
-                        Update(id);
+                        Update(products_id);
                         if (uri != null) {
                             UploadImg();
                         }
@@ -197,7 +224,7 @@ public class Product_Detail extends AppCompatActivity {
                     type_text.setTextColor(0xFF8E8E8E);
                     review_view.setVisibility(View.VISIBLE);
                     modify_view.setVisibility(View.INVISIBLE);
-                    delete_btn.setVisibility(View.INVISIBLE);
+                    delete_btn.setVisibility(View.GONE);
                 }
             }
         });
@@ -210,6 +237,8 @@ public class Product_Detail extends AppCompatActivity {
         });
 
     }
+
+
 
     private AdapterView.OnItemSelectedListener roomListener = new AdapterView.OnItemSelectedListener() {
         @Override
@@ -345,5 +374,133 @@ public class Product_Detail extends AppCompatActivity {
         }
     }
 
+    private String getMessageEdit(){
+        String data = "";
 
+        if(messageEdit.getText()!=null){
+            data = messageEdit.getText().toString();
+        }
+
+        return data;
+    }
+
+    private void GetMessage(String productsId) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("products_id", productsId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Ion.with(this)
+                .load(getMessage_URL)
+                .setBodyParameter("action", jsonObject.toString())
+                .asJsonArray()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<JsonArray>>() {
+                    @Override
+                    public void onCompleted(Exception e, Response<JsonArray> result) {
+
+                        if (e != null) {
+
+                        } else {
+                            if (result.getHeaders().code() == 200) {
+                                GetMessageJsonParse(result.getResult().toString());
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void GetMessageJsonParse(String jsonObject) {
+
+        try {
+            JSONArray arr = new JSONArray(jsonObject);
+
+            if (arr.getJSONObject(0).has("result")){
+                Toast.makeText(getApplicationContext(), ""+arr.getJSONObject(0).getString("result"), Toast.LENGTH_SHORT).show();
+            }else{
+                for (int i = 0; i < arr.length(); i++) {
+                    String name = arr.getJSONObject(i).getString("name");
+                    String message = arr.getJSONObject(i).getString("message");
+                    String time = arr.getJSONObject(i).getString("time");
+
+                    MessagePost post = new MessagePost(name,message,time);
+                    messagePost.add(0,post);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        mAdapter = new MessageAdapter(Product_Detail.this, messagePost);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    private void SetMessage(String productsId,String message) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("products_id", productsId);
+            jsonObject.put("name",LoginActivity.userName);
+            jsonObject.put("message",message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Ion.with(this)
+                .load(setMessage_URL)
+                .setBodyParameter("action", jsonObject.toString())
+                .asJsonObject()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<JsonObject>>() {
+                    @Override
+                    public void onCompleted(Exception e, Response<JsonObject> result) {
+
+                        if (e != null) {
+
+                        } else {
+                            if (result.getHeaders().code() == 200) {
+                                SetMessageJsonParse(result.getResult().toString());
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void SetMessageJsonParse(String jsonObject){
+        try {
+
+            JSONObject json = new JSONObject(jsonObject);
+
+            if(json.has("result")){
+
+                switch (json.getString("result")){
+                    case "ok":
+                        Toast.makeText(this, "留言成功", Toast.LENGTH_SHORT).show();
+                        messageEdit.setText("");
+                        messagePost.clear();
+                        GetMessage(products_id);
+                        break;
+
+                    case "系統錯誤":
+                        Toast.makeText(this, ""+json.getString("result"), Toast.LENGTH_SHORT).show();
+                        break;
+
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onClick(View v) {
+        if (null == inputMethodManager) {
+            inputMethodManager = (InputMethodManager)
+                    this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        }
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
 }
