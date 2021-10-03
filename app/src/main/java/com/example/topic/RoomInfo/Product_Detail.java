@@ -82,6 +82,7 @@ public class Product_Detail extends AppCompatActivity{
         messagePost = new ArrayList<>();
         recyclerView = findViewById(R.id.message_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         mImage = findViewById(R.id.prodouct_image);
         type_text = findViewById(R.id.text_btn);
 
@@ -178,10 +179,12 @@ public class Product_Detail extends AppCompatActivity{
         }
 
 
+        // float button 聯繫屋主-按鍵監聽
         findViewById(R.id.floatingBtn).setOnClickListener(v -> {
             startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
         });
 
+        // 送出留言-按鍵監聽
         messageBtn.setOnClickListener(v -> {
             if(!getMessageEdit().equals("") || !getMessageEdit().isEmpty()){
                 SetMessage(products_id,getMessageEdit());
@@ -374,6 +377,7 @@ public class Product_Detail extends AppCompatActivity{
         }
     }
 
+    // 檢查留言輸入匡是否有值
     private String getMessageEdit(){
         String data = "";
 
@@ -384,6 +388,7 @@ public class Product_Detail extends AppCompatActivity{
         return data;
     }
 
+    // 取得留言列表
     private void GetMessage(String productsId) {
 
         JSONObject jsonObject = new JSONObject();
@@ -413,6 +418,7 @@ public class Product_Detail extends AppCompatActivity{
                 });
     }
 
+    // 取得留言列表-Json處理
     private void GetMessageJsonParse(String jsonObject) {
 
         try {
@@ -438,6 +444,7 @@ public class Product_Detail extends AppCompatActivity{
         recyclerView.setAdapter(mAdapter);
     }
 
+    // 新增留言
     private void SetMessage(String productsId,String message) {
 
         JSONObject jsonObject = new JSONObject();
@@ -469,6 +476,7 @@ public class Product_Detail extends AppCompatActivity{
                 });
     }
 
+    // 新增留言-Json處理
     private void SetMessageJsonParse(String jsonObject){
         try {
 
