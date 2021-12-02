@@ -89,14 +89,16 @@ public class Publish extends AppCompatActivity {
         findViewById(R.id.uploadBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (uri != null && name_edit.getText() != null && phone_edit.getText() != null && address_edit.getText() != null &&
-                    price_edit.getText() != null){
+                if (uri != null && name_edit.getText().length()>0 && phone_edit.getText().length()>0 && address_edit.getText().length()>0 &&
+                    price_edit.getText().length()>0){
                     try {
                         UploadData();
                         UploadImg();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }else{
+                    Toast.makeText(Publish.this, "請填寫完整欄位", Toast.LENGTH_SHORT).show();
                 }
             }
         });

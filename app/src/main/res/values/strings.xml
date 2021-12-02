@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Topic</string>
+    <string name="app_name">菊島學生租屋</string>
     <string name="title_activity_feature_detail">FeatureDetail</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
