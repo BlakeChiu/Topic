@@ -73,8 +73,9 @@ public class Search extends AppCompatActivity {
         // 下拉式選單 - 選擇房間模式
         roomAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, spinnerRoomArr);
         spinner_room.setAdapter(roomAdapter);
-        spinner_room.setOnItemSelectedListener(roomListener);
         spinner_room.setSelection(0);
+        spinner_room.setOnItemSelectedListener(roomListener);
+
 
         products = new ArrayList<>();
 
@@ -115,7 +116,7 @@ public class Search extends AppCompatActivity {
                 spinner_room.setVisibility(View.VISIBLE);
                 name_edit.setVisibility(View.INVISIBLE);
                 name_edit.setText("");
-                searchStr = "";
+                searchStr = spinnerRoomArr[0];
                 selectType = "2";
 
             } else if (spinnerBlogArr[position].equals("姓名")) {
@@ -144,12 +145,13 @@ public class Search extends AppCompatActivity {
     private AdapterView.OnItemSelectedListener roomListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            Log.i("TAGGGGG","roomListener onItemSelected = " + position);
             searchStr = spinnerRoomArr[position];
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-
+            Log.i("TAGGGGG","onNothingSelected");
         }
     };
 
@@ -160,8 +162,6 @@ public class Search extends AppCompatActivity {
      * select_type = 2 -> 搜尋房型
      **/
     private void getProducts(String select_type) {
-
-
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -180,6 +180,8 @@ public class Search extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        Log.i("TAGGGGG", "housetype = " + searchStr);
 
         Ion.with(this)
                 .load(url.urlDataSelect)

@@ -86,6 +86,7 @@ public class Feature extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feature);
 
+        showStatus = false;
         initLayout();
 
     }
