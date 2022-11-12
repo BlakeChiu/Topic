@@ -2,13 +2,13 @@ package com.example.topic.URL;
 
 public class Url {
 
-    private String LoginBase = "http://192.168.64.2/android/Login/";
+    private String LoginBase = "http://192.168.1.9/android/Login/";
 
-    private String InfoBase = "http://192.168.64.2/android/";
+    private String InfoBase = "http://192.168.1.9/android/";
 
-    private String ImageBase = "http://192.168.64.2/upload-image/";
+    private String ImageBase = "http://192.168.1.9/upload-image/";
 
-    private String MessageBase = "http://192.168.64.2/android/Message/";
+    private String MessageBase = "http://192.168.1.9/android/Message/";
 
     public String urlSingIn = LoginBase + "member_login.php";
 
